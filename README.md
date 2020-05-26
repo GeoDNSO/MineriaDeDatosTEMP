@@ -7,6 +7,7 @@ En este documento, se detallará la estructura seguida en el proyecto, explicand
 - **CSV.** Directorio que contiene los CSVs utilizados en el proyecto
   - **Originales** : CSV originales usados para la generación de CSVs con una mejor estructura con los scripts de Python
   - **Generados**: CSV generados por los scripts de Python, los usados posteriormente en R.
+  
 **Nota:**  En ningún momento se realizaron modificaciones sobre los CSV originales, solo se reestructuró la información contenida en ellos en otro CSV generado en Python para facilitar la carga en el datawarehouse en R
 
 - **Scripts Pyhton de Limpieza.** Directorio con los scripts usados para generar los CSV que se utilizarán en R.
