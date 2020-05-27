@@ -12,7 +12,7 @@ En este documento, se detallará la estructura seguida en el proyecto, explicand
 
 - **Scripts Pyhton de Limpieza.** Directorio con los scripts usados para generar los CSV que se utilizarán en R.
 - **Carga DWH.** Directorio con el código R usado para cargar el datawarehouse, hay dos versiones una usada para la 1º iteración y otra usada en el resto de las iteraciones (se mejoró el proceso de carga).
-- **Modelos.** Carpeta en la que se encuentran todos los modelos probados durante las distintas iteraciones, dichos scripts poseen alguna explicación de lo realizado en cada iteración.
+- **Modelos.** Carpeta en la que se encuentran todos los modelos probados durante las distintas iteraciones, dichos scripts poseen alguna explicación de lo realizado en cada iteración. Los modelos definitivos se encuentran en la carpeta Iteración Final, donde el modelo principal corresponde al fichero **modeloDWH_it4_2007.R**
 - **Sql.** Directorio con la de la base de datos con datos y sin datos. (La versión definitiva del datawarehouse)
 
 **Nota:** Ejecutar directamente los scripts de Python sobre los CSV no generarían unos CSV 100% válidos para ser usados en R, ya que además de por los scripts han pasado por algunas mejoras manuales, estos CSV perfectos están dentro de la carpeta con el Proyecto R.
