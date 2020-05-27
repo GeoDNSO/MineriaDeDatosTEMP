@@ -16,9 +16,26 @@ rm(list=ls())
 #-----------------------------NumParados a partir de IPC y Deuda PÃºblica desde 2005------------------------
 #----------------------------------------------------------------------------------------------------------
 
+con <- dbConnect(RMySQL::MySQL(), host = "localhost",dbname="min",user = "root", password = "")
+
+sqlParados <- "SELECT SUM(turismo.NumParados) as numParados, tiempo.Mes, tiempo.Anio FROM `turismo` JOIN `tiempo` ON `turismo`.`ID Mes`=`tiempo`.`ID Mes` WHERE tiempo.Anio >= 2005 GROUP BY `tiempo`.`ID Mes`;"
+
+
+sqlIPC <- "SELECT `turismo`.`ID Mes`, tiempo.Mes, tiempo.Anio, ipc.Indice
+FROM turismo 
+JOIN ipcids ON `ipcids`.`idHecho`=`turismo`.`ID IPC`
+JOIN `ipc` ON `ipc`.`ID IPC` = `ipcids`.`idDatos` 
+JOIN tiempo ON `turismo`.`ID Mes` = `tiempo`.`ID Mes` 
+JOIN comunidad ON `comunidad`.`ID Comunidad` = `turismo`.`ID Comunidad` 
+
+WHERE tiempo.Anio >= 2005 AND ipc.GrupoECOICOP='Índice general'
+GROUP BY `tiempo`.`ID Mes` "
+
+sqlDeudaPublica <- "SELECT AVG(turismo.deudaPubPIB) as deudaPubPIB, tiempo.Mes, tiempo.Anio FROM `turismo` JOIN `tiempo` ON `turismo`.`ID Mes`=`tiempo`.`ID Mes` WHERE tiempo.Anio >= 2005 GROUP BY `tiempo`.`ID Mes`"
+
+
 
 paradosBD <- dbGetQuery(con, sqlParados)
-turistasBD <- dbGetQuery(con, sqlTuristas)
 ipcBD <- dbGetQuery(con, sqlIPC)
 deudaPubBD <- dbGetQuery(con, sqlDeudaPublica)
 

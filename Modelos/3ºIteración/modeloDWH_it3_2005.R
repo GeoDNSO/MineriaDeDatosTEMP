@@ -30,7 +30,7 @@ JOIN `ipc` ON `ipc`.`ID IPC` = `ipcids`.`idDatos`
 JOIN tiempo ON `turismo`.`ID Mes` = `tiempo`.`ID Mes` 
 JOIN comunidad ON `comunidad`.`ID Comunidad` = `turismo`.`ID Comunidad` 
 
-WHERE tiempo.Anio >= 2005 AND ipc.GrupoECOICOP='Índice general'
+WHERE tiempo.Anio >= 2005 AND ipc.GrupoECOICOP='�ndice general'
 GROUP BY `tiempo`.`ID Mes` "
 
 sqlDeudaPublica <- "SELECT AVG(turismo.deudaPubPIB) as deudaPubPIB, tiempo.Mes, tiempo.Anio FROM `turismo` JOIN `tiempo` ON `turismo`.`ID Mes`=`tiempo`.`ID Mes` WHERE tiempo.Anio >= 2005 GROUP BY `tiempo`.`ID Mes`"
@@ -38,7 +38,6 @@ sqlDeudaPublica <- "SELECT AVG(turismo.deudaPubPIB) as deudaPubPIB, tiempo.Mes, 
 
 #Ejecutamos la consultas SQL
 paradosBD <- dbGetQuery(con, sqlParados)
-turistasBD <- dbGetQuery(con, sqlTuristas)
 ipcBD <- dbGetQuery(con, sqlIPC)
 deudaPubBD <- dbGetQuery(con, sqlDeudaPublica)
 
@@ -59,7 +58,6 @@ deudaPrePred <- deudaPubBD[-c(1:4),]
 
 
 paradosBD <- dbGetQuery(con, sqlParados)
-turistasBD <- dbGetQuery(con, sqlTuristas)
 ipcBD <- dbGetQuery(con, sqlIPC)
 deudaPubBD <- dbGetQuery(con, sqlDeudaPublica)
 
@@ -142,7 +140,7 @@ layout(matrix(1)) # Restauración del valor inicial
 #Se construyen los vectores
 vectorIPC <- unlist(ipcPrePred$Indice, use.names = FALSE)
 vectorParados <- unlist(paradosPrePred$numParados, use.names = FALSE)
-vectorDeudaPub <- unlist(deudaPrePred$Indice, use.names = FALSE)
+vectorDeudaPub <- unlist(deudaPrePred$deudaPubPIB, use.names = FALSE)
 
 matriz <- cbind(vectorIPC, vectorParados, vectorDeudaPub)
 
@@ -199,7 +197,7 @@ s3d$plane3d(pred) # Pinta los puntos del modelo sobre la estructura
 #-----------------------------Predicción------------------------------------------------------
 
 #Tiene que tener el mismo nombre que los coeficientes del modelo generado por lm
-new = data.frame("ipcTrain"=testData[,1] , "deudaTrain"=testData[,3] , "precioViviendaTrain"=testData[,4]) 
+new = data.frame("ipcTrain"=testData[,2] , "deudaTrain"=testData[,1] , "paradTrain"=testData[,3]) 
 
 
 #Se repite el 1 (tipo de estilo) para los datos usados en entrenamiento y el 2 para los datos que se van a usar para la prediccion

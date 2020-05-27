@@ -138,10 +138,6 @@ layout(matrix(1)) # Restauración del valor inicial
 s3d <- scatterplot3d(trainData[,1], trainData[,3], trainData[,2], highlight.3d=T, type="h",
                      lab=c(2,3)) # Pinta la “estructura”.
 
-#COMO SELECCIOANAR LAS VARIABLES CONCRETAS PARA LA PREDICCION
-s3d$plane3d(pred) # Pinta los puntos del modelo sobre la estructura
-
-
 
 s3d <- scatterplot3d(trainData[,1], trainData[,4], trainData[,2], highlight.3d=T, type="h",
                      lab=c(2,3)) # Pinta la “estructura”.

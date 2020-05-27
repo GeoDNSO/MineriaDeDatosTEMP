@@ -117,6 +117,13 @@ paradosPrePred
 
 vectorIPC <- unlist(ipcPrePred$Indice, use.names = FALSE)
 
+vectorDeudaPub <- unlist(deudaPubPrePred$deudaPubPIB, use.names = FALSE)
+
+vectorPrecioViv <- unlist(precioPrePred$IndicePrecioViv, use.names = FALSE)
+
+vectorComunidades <- unlist(paradosPrePred$NombreComunidad, use.names = FALSE)
+factorComunidades <- factor(vectorComunidades)
+
 #Calculamos el numero de intervalos
 k = 5
 #Calculamos la amplitud

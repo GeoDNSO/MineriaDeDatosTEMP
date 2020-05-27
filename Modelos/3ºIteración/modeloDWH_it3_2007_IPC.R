@@ -46,7 +46,7 @@ JOIN `ipc` ON `ipc`.`ID IPC` = `ipcids`.`idDatos`
 JOIN tiempo ON `turismo`.`ID Mes` = `tiempo`.`ID Mes` 
 JOIN comunidad ON `comunidad`.`ID Comunidad` = `turismo`.`ID Comunidad` 
 
-WHERE tiempo.Anio >= 2007 AND ipc.GrupoECOICOP='Ãndice general'
+WHERE tiempo.Anio >= 2007 AND ipc.GrupoECOICOP='Índice general'
 GROUP BY `tiempo`.`ID Mes` "
 
 
@@ -156,3 +156,4 @@ prediccion
 
 prediccion <- predict(pred, newdata = new, interval='prediction')
 prediccion
+

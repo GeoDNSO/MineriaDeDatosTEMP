@@ -51,7 +51,7 @@ JOIN `ipc` ON `ipc`.`ID IPC` = `ipcids`.`idDatos`
 JOIN tiempo ON `turismo`.`ID Mes` = `tiempo`.`ID Mes` 
 JOIN comunidad ON `comunidad`.`ID Comunidad` = `turismo`.`ID Comunidad` 
 
-WHERE tiempo.Anio >= 2013 AND ipc.GrupoECOICOP='Índice general'
+WHERE tiempo.Anio >= 2013 AND ipc.GrupoECOICOP='�ndice general'
 GROUP BY `tiempo`.`ID Mes` "
 
 
@@ -133,10 +133,8 @@ layout(matrix(1)) # RestauraciÃ³n del valor inicial
 s3d <- scatterplot3d(trainData[,1], trainData[,3], trainData[,2], highlight.3d=T, type="h",
                      lab=c(2,3)) # Pinta la âestructuraâ.
 
-#COMO SELECCIOANAR LAS VARIABLES CONCRETAS PARA LA PREDICCION
-s3d$plane3d(pred) # Pinta los puntos del modelo sobre la estructura
-
 
 
 s3d <- scatterplot3d(trainData[,1], trainData[,4], trainData[,2], highlight.3d=T, type="h",
                      lab=c(2,3)) # Pinta la âestructuraâ.
+
