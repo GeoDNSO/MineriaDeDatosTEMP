@@ -16,6 +16,42 @@ rm(list=ls())
 
 con <- dbConnect(RMySQL::MySQL(), host = "localhost",dbname="min",user = "root", password = "")
 
+
+#Preparamos las sentencias SQL
+
+#Numero de parados a nivel nacional
+sqlParados <- "SELECT SUM(turismo.NumParados) as numParados, tiempo.Mes, tiempo.Anio FROM `turismo` JOIN `tiempo` ON `turismo`.`ID Mes`=`tiempo`.`ID Mes` WHERE tiempo.Anio >= 2005 GROUP BY `tiempo`.`ID Mes`;"
+
+
+sqlIPC <- "SELECT `turismo`.`ID Mes`, tiempo.Mes, tiempo.Anio, ipc.Indice
+FROM turismo 
+JOIN ipcids ON `ipcids`.`idHecho`=`turismo`.`ID IPC`
+JOIN `ipc` ON `ipc`.`ID IPC` = `ipcids`.`idDatos` 
+JOIN tiempo ON `turismo`.`ID Mes` = `tiempo`.`ID Mes` 
+JOIN comunidad ON `comunidad`.`ID Comunidad` = `turismo`.`ID Comunidad` 
+
+WHERE tiempo.Anio >= 2005 AND ipc.GrupoECOICOP='Índice general'
+GROUP BY `tiempo`.`ID Mes` "
+
+sqlDeudaPublica <- "SELECT AVG(turismo.deudaPubPIB) as deudaPubPIB, tiempo.Mes, tiempo.Anio FROM `turismo` JOIN `tiempo` ON `turismo`.`ID Mes`=`tiempo`.`ID Mes` WHERE tiempo.Anio >= 2005 GROUP BY `tiempo`.`ID Mes`"
+
+
+#Ejecutamos la consultas SQL
+paradosBD <- dbGetQuery(con, sqlParados)
+turistasBD <- dbGetQuery(con, sqlTuristas)
+ipcBD <- dbGetQuery(con, sqlIPC)
+deudaPubBD <- dbGetQuery(con, sqlDeudaPublica)
+
+
+#Filtrar los datos NA, se ha hecho de manera semiaumática como en la anterior iteración...
+#También se han acortado los datos para que abarquen el mismo intervalo temporal
+
+ipcPrePred <- ipcBD[-c(1:4),]
+paradosPrePred <- paradosBD[-c(183:192),]
+paradosPrePred <- paradosPrePred[-c(1:4),]
+deudaPrePred <- deudaPubBD[-c(1:4),]
+
+
 #----------------------------------------------------------------------------------------------------------
 #-----------------------------NumParados a partir de IPC desde 2005------------------------
 #----------------------------------------------------------------------------------------------------------
@@ -100,40 +136,6 @@ layout(matrix(1)) # Restauración del valor inicial
 #-----------------------NumParados a partir de IPC y Deuda Pública desde 2005------------------------------
 #----------------------------------------------------------------------------------------------------------
 
-
-#Preparamos las sentencias SQL
-
-#Numero de parados a nivel nacional
-sqlParados <- "SELECT SUM(turismo.NumParados) as numParados, tiempo.Mes, tiempo.Anio FROM `turismo` JOIN `tiempo` ON `turismo`.`ID Mes`=`tiempo`.`ID Mes` WHERE tiempo.Anio >= 2005 GROUP BY `tiempo`.`ID Mes`;"
-
-
-sqlIPC <- "SELECT `turismo`.`ID Mes`, tiempo.Mes, tiempo.Anio, ipc.Indice
-FROM turismo 
-JOIN ipcids ON `ipcids`.`idHecho`=`turismo`.`ID IPC`
-JOIN `ipc` ON `ipc`.`ID IPC` = `ipcids`.`idDatos` 
-JOIN tiempo ON `turismo`.`ID Mes` = `tiempo`.`ID Mes` 
-JOIN comunidad ON `comunidad`.`ID Comunidad` = `turismo`.`ID Comunidad` 
-
-WHERE tiempo.Anio >= 2005 AND ipc.GrupoECOICOP='Índice general'
-GROUP BY `tiempo`.`ID Mes` "
-
-sqlDeudaPublica <- "SELECT AVG(turismo.deudaPubPIB) as deudaPubPIB, tiempo.Mes, tiempo.Anio FROM `turismo` JOIN `tiempo` ON `turismo`.`ID Mes`=`tiempo`.`ID Mes` WHERE tiempo.Anio >= 2005 GROUP BY `tiempo`.`ID Mes`"
-
-
-#Ejecutamos la consultas SQL
-paradosBD <- dbGetQuery(con, sqlParados)
-turistasBD <- dbGetQuery(con, sqlTuristas)
-ipcBD <- dbGetQuery(con, sqlIPC)
-deudaPubBD <- dbGetQuery(con, sqlDeudaPublica)
-
-
-#Filtrar los datos NA, se ha hecho de manera semiaumática como en la anterior iteración...
-#También se han acortado los datos para que abarquen el mismo intervalo temporal
-
-ipcPrePred <- ipcBD[-c(1:4),]
-paradosPrePred <- paradosBD[-c(183:192),]
-paradosPrePred <- paradosPrePred[-c(1:4),]
-deudaPrePred <- deudaPubBD[-c(1:4),]
 
 #------------UNIR DATA FRAMES-CON SERIES TEMP------------------
 
