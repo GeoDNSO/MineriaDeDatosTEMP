@@ -33,7 +33,7 @@ FROM
 JOIN `tiempo` ON `turismo`.`ID Mes` = `tiempo`.`ID Mes`
 JOIN `comunidad` ON `turismo`.`ID Comunidad` = `comunidad`.`ID Comunidad`
 WHERE
-    tiempo.Anio >= 2007 AND `comunidad`.`NombreComunidad` != \"Otras Comunidades Aut?nomas\" AND `comunidad`.`NombreComunidad` != \"Melilla\" AND `comunidad`.`NombreComunidad` != \"Ceuta\"
+    tiempo.Anio >= 2007 AND `comunidad`.`NombreComunidad` != \"Otras Comunidades Autónomas\" AND `comunidad`.`NombreComunidad` != \"Melilla\" AND `comunidad`.`NombreComunidad` != \"Ceuta\"
     
     ORDER BY `tiempo`.`ID Mes`,`comunidad`.`NombreComunidad` ASC;"
 
@@ -54,7 +54,7 @@ JOIN `ipc` ON `ipc`.`ID IPC` = `ipcids`.`idDatos`
 JOIN tiempo ON `turismo`.`ID Mes` = `tiempo`.`ID Mes`
 JOIN comunidad ON `comunidad`.`ID Comunidad` = `turismo`.`ID Comunidad`
 WHERE
-    tiempo.Anio >= 2007 AND IPC.GrupoECOICOP = '?ndice general' AND `comunidad`.`NombreComunidad` != \"Otras Comunidades Autónomas\" AND `comunidad`.`NombreComunidad` != \"Melilla\" AND `comunidad`.`NombreComunidad` != \"Ceuta\"
+    tiempo.Anio >= 2007 AND IPC.GrupoECOICOP = 'Índice general' AND `comunidad`.`NombreComunidad` != \"Otras Comunidades Autónomas\" AND `comunidad`.`NombreComunidad` != \"Melilla\" AND `comunidad`.`NombreComunidad` != \"Ceuta\"
 ORDER BY
     `tiempo`.`ID Mes`,
     `comunidad`.`NombreComunidad` ASC;"
@@ -127,7 +127,7 @@ L
 marcas = (L[0:k] + L[1:k+1])/2
 marcas
 
-etiq = c("grado 1", "grado 2", "grado 3","grado 4","grado 5")
+etiq = c("nivel 1", "nivel 2", "nivel 3","nivel 4","nivel 5")
 
 corte = cut(vectorParados, breaks=L, labels=etiq, right=FALSE)
 corte
